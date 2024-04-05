@@ -3,7 +3,7 @@ import json
 import re
 
 RELEASE_URL = 'https://api.github.com/repos/actions/runner/releases/latest'
-LOCAL_RELEASES_URL = "./example.json"
+LOCAL_RELEASES_URL = "./offline.json"
 USER_AGENT = "hub.docker.com_coderookieerick_github-actions-runner"
 
 def get_releases_data():

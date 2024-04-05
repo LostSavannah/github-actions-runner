@@ -2,6 +2,7 @@ FROM python:latest as downloader
 WORKDIR /downloader
 COPY ./requirements.txt .
 RUN pip install -r ./requirements.txt
+COPY ./offline.json .
 COPY ./download-actions-runner.py .
 RUN python3 ./download-actions-runner.py
 
