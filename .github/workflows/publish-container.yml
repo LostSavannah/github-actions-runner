@@ -1,4 +1,4 @@
-name: Build and publish azurite container
+name: Build and publish container
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-01
+    runs-on: dockerable
     steps:
       - uses: actions/checkout@v3
       - run: |
