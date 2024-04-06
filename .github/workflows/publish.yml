@@ -1,4 +1,4 @@
-name: Build and publish container
+name: Publish
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  publish:
     runs-on: dockerable
     steps:
       - uses: actions/checkout@v3
