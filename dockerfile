@@ -1,9 +1,13 @@
 FROM python:latest as downloader
+ARG OS=linux
+ARG ARCH=x64
 WORKDIR /downloader
 COPY ./requirements.txt .
 RUN pip install -r ./requirements.txt
 COPY ./offline.json .
 COPY ./download-actions-runner.py .
+ENV AR_OPERATING_SYSTEM=${OS}
+ENV AR_ARCHITECTURE=${ARCH}
 RUN python3 ./download-actions-runner.py
 
 FROM ubuntu:latest

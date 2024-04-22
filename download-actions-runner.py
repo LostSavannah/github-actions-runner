@@ -1,6 +1,7 @@
 import requests
 import json
 import re
+import os
 
 RELEASE_URL = 'https://api.github.com/repos/actions/runner/releases/latest'
 LOCAL_RELEASES_URL = "./offline.json"
@@ -26,7 +27,7 @@ def get_release(os:str, arch:str):
     releases = get_releases()
     candidates = [
          releases[i]
-         for i in get_releases()
+         for i in releases
          if re.match(pattern, i)
     ]
     if len(candidates) == 1:
@@ -43,6 +44,9 @@ def download_file(url:str, target:str, chunk_size:int = 10485760):
             for chunk in fi.iter_content(chunk_size=chunk_size):
                 dowloaded += len(chunk)
                 fo.write(chunk)
-    
-release = get_release("linux", "x64")
+
+operating_system = os.environ.get("AR_OPERATING_SYSTEM", "linux")
+architecture = os.environ.get("AR_ARCHITECTURE", "x64")
+
+release = get_release(operating_system, architecture)
 download_file(release, "./actions-runner.tar.gz")
