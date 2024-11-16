@@ -24,7 +24,7 @@ jobs:
           docker push coderookieerick/github-actions-runner:linux-x64
 
   build_arm64:
-    runs-on: ARM64
+    runs-on: MACROARM64
     steps:
 
       - name: Checkout

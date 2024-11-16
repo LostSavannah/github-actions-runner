@@ -21,7 +21,7 @@ jobs:
           docker build -t github-actions-runner --build-arg="OS=linux" --build-arg="ARCH=x64" .
 
   test_arm64:
-    runs-on: ARM64
+    runs-on: MACROARM64
     steps:
 
       - name: Checkout
