@@ -21,7 +21,7 @@ jobs:
           docker build -t github-actions-runner --build-arg="OS=linux" --build-arg="ARCH=x64" .
           docker login -u coderookieerick -p ${{ secrets.ACTIONS_RUNNER_DOCKER_IMAGE_TOKEN }}
           docker tag github-actions-runner coderookieerick/github-actions-runner:linux-x64
-          docker push coderookieerick/github-actions-runner:linux-64
+          docker push coderookieerick/github-actions-runner:linux-x64
 
   build_arm64:
     runs-on: ARM64
