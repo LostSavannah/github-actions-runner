@@ -24,7 +24,7 @@ RUN chmod +x ./configure.sh
 COPY ./entrypoint.sh .
 RUN chmod +x ./entrypoint.sh
 
-RUN adduser --disabled-password --gecos "" actions-runner
+RUN useradd actions-runner
 RUN chown -R actions-runner /actions-runner
 
 
