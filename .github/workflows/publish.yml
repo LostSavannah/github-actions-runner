@@ -31,37 +31,3 @@ jobs:
           docker login -u coderookieerick -p ${{ secrets.ACTIONS_RUNNER_DOCKER_IMAGE_TOKEN }}
           docker tag github-actions-runner coderookieerick/github-actions-runner:linux-arm64
           docker push coderookieerick/github-actions-runner:linux-arm64
-
-  publish-linux-x64:
-    runs-on: ubuntu-01
-    needs: [ build ]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      
-      - name: Build
-        run: |
-          docker build -t github-actions-runner --build-arg="OS=linux" --build-arg="ARCH=x64" .
-
-      - name: Publish
-        run: |
-          docker login -u coderookieerick -p ${{ secrets.ACTIONS_RUNNER_DOCKER_IMAGE_TOKEN }}
-          docker tag github-actions-runner coderookieerick/github-actions-runner:linux-x64
-          docker push coderookieerick/github-actions-runner:linux-x64
-
-  publish-linux-arm64:
-    runs-on: ARM64
-    needs: [ build ]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      
-      - name: Build
-        run: |
-          docker build -t github-actions-runner --build-arg="OS=linux" --build-arg="ARCH=arm64" .
-
-      - name: Publish
-        run: |
-          docker login -u coderookieerick -p ${{ secrets.ACTIONS_RUNNER_DOCKER_IMAGE_TOKEN }}
-          docker tag github-actions-runner coderookieerick/github-actions-runner:linux-arm64
-          docker push coderookieerick/github-actions-runner:linux-arm64
