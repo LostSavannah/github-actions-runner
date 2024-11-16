@@ -1,4 +1,4 @@
-FROM python:latest as downloader
+FROM python:latest AS downloader
 ARG OS=linux
 ARG ARCH=x64
 WORKDIR /downloader
