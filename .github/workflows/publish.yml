@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build_x64:
     runs-on: ubuntu-latest
     steps:
 
@@ -16,16 +16,26 @@ jobs:
       - name: Set up Docker buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Publish linux-x64
+      - name: Publish
         run: |
           docker build -t github-actions-runner --build-arg="OS=linux" --build-arg="ARCH=x64" .
           docker login -u coderookieerick -p ${{ secrets.ACTIONS_RUNNER_DOCKER_IMAGE_TOKEN }}
           docker tag github-actions-runner coderookieerick/github-actions-runner:linux-x64
-          docker push coderookieerick/github-actions-runner:linux-x64
+          docker push coderookieerick/github-actions-runner:linux-64
 
-      - name: Publish linux-arm64
+  build_arm64:
+    runs-on: ARM64
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Publish
         run: |
           docker build -t github-actions-runner --build-arg="OS=linux" --build-arg="ARCH=arm64" .
           docker login -u coderookieerick -p ${{ secrets.ACTIONS_RUNNER_DOCKER_IMAGE_TOKEN }}
-          docker tag github-actions-runner coderookieerick/github-actions-runner:linux-arm64
-          docker push coderookieerick/github-actions-runner:linux-arm64
+          docker tag github-actions-runner coderookieerick/github-actions-runner:linux-arm-x64
+          docker push coderookieerick/github-actions-runner:linux-arm-x64
