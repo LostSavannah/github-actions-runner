@@ -10,14 +10,7 @@ ENV AR_OPERATING_SYSTEM=${OS}
 ENV AR_ARCHITECTURE=${ARCH}
 RUN python3 ./download-actions-runner.py
 
-FROM ubuntu:latest
-
-RUN apt update
-RUN apt install -y wget
-RUN wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
-RUN chmod +x ./dotnet-install.sh
-RUN ./dotnet-install.sh
-RUN apt install -y libicu-dev
+FROM mcr.microsoft.com/dotnet/runtime:8.0-noble-chiseled
 
 WORKDIR /actions-runner
 
@@ -31,7 +24,6 @@ RUN chmod +x ./entrypoint.sh
 
 RUN useradd actions-runner
 RUN chown -R actions-runner /actions-runner
-
 
 USER actions-runner
 

@@ -44,7 +44,7 @@ jobs:
           docker push coderookieerick/github-actions-runner:linux-x64
 
   publish-linux-arm64:
-    runs-on: ubuntu-arm
+    runs-on: ARM64
     needs: [ build ]
     steps:
       - name: Checkout
