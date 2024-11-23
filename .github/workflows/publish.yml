@@ -18,7 +18,7 @@ jobs:
 
       - name: Publish
         run: |
-          docker build -t github-actions-runner --build-arg="OS=linux" --build-arg="ARCH=x64" .
+          docker build -t github-actions-runner .
           docker login -u coderookieerick -p ${{ secrets.ACTIONS_RUNNER_DOCKER_IMAGE_TOKEN }}
           docker tag github-actions-runner coderookieerick/github-actions-runner:linux-x64
           docker push coderookieerick/github-actions-runner:linux-x64
@@ -35,7 +35,7 @@ jobs:
 
       - name: Publish
         run: |
-          docker build -t github-actions-runner --build-arg="OS=linux" --build-arg="ARCH=arm64" .
+          docker build -t github-actions-runner .
           docker login -u coderookieerick -p ${{ secrets.ACTIONS_RUNNER_DOCKER_IMAGE_TOKEN }}
           docker tag github-actions-runner coderookieerick/github-actions-runner:linux-arm64
           docker push coderookieerick/github-actions-runner:linux-arm64

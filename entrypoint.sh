@@ -1,3 +1,3 @@
 cd /actions-runner
-test -x ./configure.sh && ./configure.sh && /bin/rm -f ./configure.sh
+test -x ./initial-configuration.sh && ./initial-configuration.sh && /bin/rm -f ./initial-configuration.sh
 ./run.sh
