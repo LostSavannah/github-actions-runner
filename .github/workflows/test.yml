@@ -7,6 +7,9 @@ on:
 
 jobs:
   test_x64:
+    strategy:
+      matrix: 
+        version: [base, node, dotnet]
     runs-on: ubuntu-latest
     steps:
 
@@ -16,17 +19,9 @@ jobs:
       - name: Set up Docker buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Test Base
+      - name: Test ${{matrix.version}}
         run: |
-          docker build -f ./gar.base.dockerfile -t github-actions-runner .
-
-      - name: Test Dotnet8
-        run: |
-          docker build -f ./gar.dotnet8.dockerfile -t github-actions-runner .
-
-      - name: Test Python3
-        run: |
-          docker build -f ./gar.python3.dockerfile -t github-actions-runner .
+          docker build -f ./gar.${{matrix.version}}.dockerfile -t github-actions-runner .
 
   test_arm64:
     runs-on: MACROARM64
@@ -38,14 +33,6 @@ jobs:
       - name: Set up Docker buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Test Base
+      - name: Test ${{matrix.version}}
         run: |
-          docker build -f ./gar.base.dockerfile -t github-actions-runner .
-
-      - name: Test Dotnet8
-        run: |
-          docker build -f ./gar.dotnet8.dockerfile -t github-actions-runner .
-
-      - name: Test Python3
-        run: |
-          docker build -f ./gar.python3.dockerfile -t github-actions-runner .
+          docker build -f ./gar.${{matrix.version}}.dockerfile -t github-actions-runner .
