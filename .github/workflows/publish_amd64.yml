@@ -1,0 +1,58 @@
+name: Publish
+
+on:
+  schedule:
+    - cron: "0 4 * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Publish
+        run: |
+          docker build -f ./gar.base.dockerfile -t github-actions-runner .
+          docker login -u coderookieerick -p ${{ secrets.ACTIONS_RUNNER_DOCKER_IMAGE_TOKEN }}
+          docker tag github-actions-runner coderookieerick/github-actions-runner:linux-amd64
+          docker push coderookieerick/github-actions-runner:linux-amd64
+
+  build_dotnet8:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Publish
+        run: |
+          docker build -f ./gar.dotnet8.dockerfile -t github-actions-runner: .
+          docker login -u coderookieerick -p ${{ secrets.ACTIONS_RUNNER_DOCKER_IMAGE_TOKEN }}
+          docker tag github-actions-runner coderookieerick/github-actions-runner:dotnet8-linux-amd64
+          docker push coderookieerick/github-actions-runner:dotnet8-linux-amd64
+
+  build_python3:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Publish
+        run: |
+          docker build -f ./gar.python3.dockerfile -t github-actions-runner: .
+          docker login -u coderookieerick -p ${{ secrets.ACTIONS_RUNNER_DOCKER_IMAGE_TOKEN }}
+          docker tag github-actions-runner coderookieerick/github-actions-runner:python3-linux-amd64
+          docker push coderookieerick/github-actions-runner:python3-linux-amd64

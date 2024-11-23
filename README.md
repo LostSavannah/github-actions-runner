@@ -5,7 +5,7 @@
 
 # github-actions-runner
 
-Ready to go image with a github self-hosted action runner with dotnet8.
+Images with a github self-hosted action runner.
 
 ## Build
 
