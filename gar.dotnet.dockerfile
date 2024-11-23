@@ -10,7 +10,8 @@ RUN chmod +x ./entrypoint.sh
 RUN useradd actions-runner
 RUN chown -R actions-runner .
 
-#todo install dotnet
+RUN apt update
+RUN apt install -y dotnet-sdk-8.0
 
 USER actions-runner
 
