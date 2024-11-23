@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: MACROAMD64
+    runs-on: MACROARM64
     steps:
 
       - name: Checkout
@@ -23,8 +23,11 @@ jobs:
           docker tag github-actions-runner coderookieerick/github-actions-runner:linux-arm64
           docker push coderookieerick/github-actions-runner:linux-arm64
 
-  build_dotnet8:
-    runs-on: MACROAMD64
+  build_version:
+    runs-on: MACROARM64
+    strategy:
+      matrix:
+        version: [dotnet, node]
     steps:
 
       - name: Checkout
@@ -35,24 +38,7 @@ jobs:
 
       - name: Publish
         run: |
-          docker build -f ./gar.dotnet8.dockerfile -t github-actions-runner: .
+          docker build -f ./gar.${{ matrix.version }}.dockerfile -t github-actions-runner: .
           docker login -u coderookieerick -p ${{ secrets.ACTIONS_RUNNER_DOCKER_IMAGE_TOKEN }}
-          docker tag github-actions-runner coderookieerick/github-actions-runner:dotnet8-linux-arm64
-          docker push coderookieerick/github-actions-runner:dotnet8-linux-arm64
-
-  build_python3:
-    runs-on: MACROAMD64
-    steps:
-
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Docker buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Publish
-        run: |
-          docker build -f ./gar.python3.dockerfile -t github-actions-runner: .
-          docker login -u coderookieerick -p ${{ secrets.ACTIONS_RUNNER_DOCKER_IMAGE_TOKEN }}
-          docker tag github-actions-runner coderookieerick/github-actions-runner:python3-linux-arm64
-          docker push coderookieerick/github-actions-runner:python3-linux-arm64
+          docker tag github-actions-runner coderookieerick/github-actions-runner:${{ matrix.version }}-linux-arm64
+          docker push coderookieerick/github-actions-runner:${{ matrix.version }}-linux-arm64

@@ -10,7 +10,7 @@ RUN chmod +x ./entrypoint.sh
 RUN useradd actions-runner
 RUN chown -R actions-runner .
 
-#todo install python3
+#todo install dotnet
 
 USER actions-runner
 
