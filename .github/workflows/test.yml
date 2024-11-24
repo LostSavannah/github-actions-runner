@@ -24,6 +24,9 @@ jobs:
           docker build -f ./gar.${{matrix.version}}.dockerfile -t github-actions-runner .
 
   test_arm64:
+    strategy:
+      matrix: 
+        version: [base, node, dotnet]
     runs-on: MACROARM64
     steps:
 
