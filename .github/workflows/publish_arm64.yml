@@ -1,4 +1,4 @@
-name: Publish
+name: Publish-ARM64
 
 on:
   schedule:
