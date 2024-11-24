@@ -38,7 +38,7 @@ jobs:
 
       - name: Publish
         run: |
-          docker build -f ./gar.${{matrix.version}}.dockerfile -t github-actions-runner: .
+          docker build -f ./gar.${{matrix.version}}.dockerfile -t github-actions-runner:${{matrix.version}} .
           docker login -u coderookieerick -p ${{ secrets.ACTIONS_RUNNER_DOCKER_IMAGE_TOKEN }}
-          docker tag github-actions-runner coderookieerick/github-actions-runner:${{matrix.version}}-linux-amd64
+          docker tag github-actions-runner:${{matrix.version}} coderookieerick/github-actions-runner:${{matrix.version}}-linux-amd64
           docker push coderookieerick/github-actions-runner:${{matrix.version}}-linux-amd64
